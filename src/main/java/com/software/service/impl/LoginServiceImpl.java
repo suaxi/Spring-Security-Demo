@@ -1,5 +1,6 @@
 package com.software.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.software.entity.LoginUser;
 import com.software.entity.User;
 import com.software.service.LoginService;
@@ -50,7 +51,7 @@ public class LoginServiceImpl implements LoginService {
         result.put("token", jwt);
 
         //redis缓存
-        new RedisUtil(stringRedisTemplate).set(LOGIN_KEY + id, String.valueOf(loginUser));
+        new RedisUtil(stringRedisTemplate).set(LOGIN_KEY + id, JSONObject.toJSONString(loginUser));
 
         return result;
     }
