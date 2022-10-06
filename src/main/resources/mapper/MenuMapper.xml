@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 会以namespace 和 id 在mapper 中查询具体的方法
+         resultType 表示返回对象的数据类型
+         parameterType 表示传入的数据对象
+         id  唯一标识，要与命名空间（抽象方法）中定义的方法名称一致
+ -->
+<mapper namespace="com.software.mapper.MenuMapper">
+    <select id="queryUserPermissionByUserId" resultType="java.lang.String">
+        SELECT
+            DISTINCT m.`perms`
+        FROM
+            user_role ur
+                LEFT JOIN `role` r ON ur.`role_id` = r.`id`
+                LEFT JOIN `role_menu` rm ON ur.`role_id` = rm.`role_id`
+                LEFT JOIN `menu` m ON rm.`menu_id` = m.`id`
+        WHERE
+            user_id = #{userId}
+          AND r.`status` = 0
+          AND m.`status` = 0
+    </select>
+</mapper>
