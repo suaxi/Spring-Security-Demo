@@ -6,10 +6,7 @@ import com.software.service.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -29,5 +26,12 @@ public class LoginController {
     @PostMapping("/login")
     public Result<Map<String, Object>> login(@RequestBody User user) {
         return new Result<>(200, "登录成功", loginService.login(user));
+    }
+
+    @ApiOperation("退出")
+    @GetMapping("/logout")
+    public Result<?> logout() {
+        loginService.logout();
+        return new Result<>(200, "注销成功");
     }
 }

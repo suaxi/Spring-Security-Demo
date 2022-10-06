@@ -17,4 +17,9 @@ public interface LoginService {
      * @return
      */
     Map<String, Object> login(User user);
+
+    /**
+     * 退出
+     */
+    void logout();
 }
