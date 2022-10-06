@@ -11,7 +11,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -40,12 +39,7 @@ public class LoginServiceImpl implements LoginService {
     public Map<String, Object> login(User user) {
         //认证
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-        Authentication authenticate = null;
-        try {
-            authenticate = authenticationManager.authenticate(authenticationToken);
-        } catch (AuthenticationException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         if (authenticate == null) {
             throw new RuntimeException("登录失败！");
         }
