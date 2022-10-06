@@ -42,11 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                //permitAll放行swagger相关资源
+                .antMatchers("/doc.html", "/webjars/**", "/swagger-resources/**", "/v2/**").permitAll()
                 //允许匿名访问的资源路径
-                .antMatchers("/doc.html").anonymous()
-                .antMatchers("/webjars/**").anonymous()
-                .antMatchers("/swagger-resources/**").anonymous()
-                .antMatchers("/v2/**", "anon").anonymous()
                 .antMatchers("/user/login").anonymous()
                 //需进行认证授权才能访问的资源路径
                 .anyRequest().authenticated();
