@@ -57,6 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //允许匿名访问的资源路径
                 .antMatchers("/user/login").anonymous()
                 //需进行认证授权才能访问的资源路径
+                //基于配置的权限控制
+                .antMatchers("/test2").hasAuthority("system:test")
                 .anyRequest().authenticated();
 
         //添加jwt认证过滤器
